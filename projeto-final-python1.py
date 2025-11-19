@@ -1,9 +1,10 @@
-import numpy as np
+import random
 
+# Inicialização da lista de livros
 livros = []
 
 def cadastrar_livros(livros):
-    id = np.random.randint(1, 999)  # Gera um ID aleatório
+    id = random.randint(1, 999)  # Gera um ID aleatório
     titulo = input("Digite o título do livro: ")
     autor = input("Digite o nome do autor: ")
     valor = float(input("Digite o valor do livro: R$ "))
@@ -12,11 +13,11 @@ def cadastrar_livros(livros):
     print(f"Livro cadastrado com ID: {id}")
 
 def listar_livros(livros):
-    if len(livros) < 1:     # Verifica se a lista está vazia
+    if len(livros) < 1:  # Verifica se a lista está vazia
         print("Não há livros no acervo!")
     else:
-        for livro in livros:      # Percorre e mostra todos os livros
-            print(f"{livro['id']} - Título: {livro['titulo']}, Autor: {livro['autor']}")
+        for livro in livros:  # Percorre e mostra todos os livros
+            print(f"{livro['id']} - Título: {livro['titulo']}, Autor: {livro['autor']}, Valor: R$ {livro['valor']:.2f}")
 
 def atualizar_registro(livros):
     id_fornecido = int(input("Digite o ID do livro a ser atualizado: "))
@@ -36,25 +37,25 @@ def remover_livros(livros):
     id_fornecido = int(input("Digite o ID do livro para ser excluído: "))
     for livro in livros:
         if livro['id'] == id_fornecido:
-            livros.remove(livro)    # Remove livro da lista
+            livros.remove(livro)  # Remove livro da lista
             print(f"Livro com ID {id_fornecido} removido!")
             break
     else:
         print(f"ID {id_fornecido} não encontrado.")
 
 def gerar_relatorio(livros):
-    if len(livros) < 1:       # Se não houver livros, sai da função
+    if len(livros) < 1:  # Se não houver livros, sai da função
         print("Não há livros no acervo!")
         return
 
     total = len(livros)
-    print("\n---- RELATÓRIO DO ACERVO ----")
+    print("---- RELATÓRIO DO ACERVO ----")
     print(f"Total de livros: {total}\n")
 
     # Lista ordenada por id
     print("Lista de livros (ordenada por ID):")
     for livro in sorted(livros, key=lambda l: l['id']):
-        print(f"  {livro['id']} - Título: {livro['titulo']}, Autor: {livro['autor']}")
+        print(f"  {livro['id']} - Título: {livro['titulo']}, Autor: {livro['autor']}, Valor: R$ {livro['valor']:.2f}")
 
     # Contagem por autor
     contagem_autores = {}
@@ -62,10 +63,10 @@ def gerar_relatorio(livros):
         autor = livro['autor']
         contagem_autores[autor] = contagem_autores.get(autor, 0) + 1
 
-    print("\nContagem por Autor:")
+    print("Contagem por Autor:")
     print("---------------------------")
 
-# Ordena alfabeticamente os autores
+    # Ordena alfabeticamente os autores
     for autor in sorted(contagem_autores):
         qtd = contagem_autores[autor]
         palavra = "livro" if qtd == 1 else "livros"
@@ -74,7 +75,8 @@ def gerar_relatorio(livros):
     print("---------------------------\n")
 
 
-def menu():         # Exibe o menu principal
+# Função principal - Exibe o menu
+def menu():
     while True:
         print("MENU PRINCIPAL SIB")
         print("1 - Cadastrar Livro")
@@ -86,7 +88,7 @@ def menu():         # Exibe o menu principal
 
         opcao = int(input("Digite a opção correspondente: "))
 
-# Direciona para a função correspondente
+        # Direciona para a função correspondente
         if opcao == 1:
             cadastrar_livros(livros)
         elif opcao == 2:
