@@ -1,10 +1,8 @@
-````markdown
 # 📚 Sistema de Gerenciamento de Livros em Python
 
 Este projeto é um **sistema simples de cadastro e gerenciamento de livros**, desenvolvido em Python e executado diretamente pelo terminal.  
 O programa permite registrar livros, listar, atualizar, remover e gerar relatórios completos do acervo.
 
-![](/mnt/data/A_set_of_four_digital_user_interface_prototype_scr.png)
 
 ---
 
@@ -101,6 +99,4 @@ O sistema usa:
 - **for** → percorre os livros cadastrados  
 - **if / elif / else** → controla o fluxo das operações  
 - **funções (def)** → deixam o código organizado, separado por tarefas  
-
----
 
