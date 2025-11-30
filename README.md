@@ -1,102 +1,144 @@
-# 📚 Sistema de Gerenciamento de Livros em Python
+# 📚 Sistema de Gerenciamento de Livros em Python — **SIBL**
 
-Este projeto é um **sistema simples de cadastro e gerenciamento de livros**, desenvolvido em Python e executado diretamente pelo terminal.  
-O programa permite registrar livros, listar, atualizar, remover e gerar relatórios completos do acervo.
-
-
----
-
-## ⚙️ Estrutura Geral
-
-O sistema funciona por meio de um **menu interativo**, usando um loop `while` que continua executando até o usuário escolher a opção **0 - Sair**.
-
-Cada opção do menu chama uma função específica, deixando o código organizado, modular e fácil de entender.
+Este projeto apresenta o **Sistema Integrado de Bibliotecas e Livrarias (SIBL)**, desenvolvido em Python e executado diretamente no terminal.  
+O sistema permite cadastrar livros, listar registros, atualizar dados, remover itens e gerar relatórios completos do acervo.
 
 ---
 
-## 🧩 Funcionalidades Principais
+## ⚙️ Estrutura Geral do Sistema
 
-### 1️⃣ Cadastrar Livro
-Solicita ao usuário:
-- ID (gerado automaticamente)
+O programa funciona através de um **menu interativo**, utilizando um loop `while` que mantém o sistema ativo até o usuário escolher a opção **0 - Sair**.
+
+Cada opção chama uma função específica, deixando o código organizado e fácil de manter.
+
+```
+MENU PRINCIPAL SIBL
+1 - Cadastrar Livro
+2 - Listar todos os livros
+3 - Atualizar dados de um livro
+4 - Remover livro
+5 - Gerar relatório do acervo
+0 - Sair
+```
+
+---
+
+## 🧩 Funcionalidades
+
+### **1️⃣ Cadastrar Livro**
+O sistema solicita ao usuário:
+
 - Título  
 - Autor  
-- Valor em reais  
+- Valor do livro (em R$)  
 
-O livro é armazenado como um **dicionário**, dentro da lista `livros`.
+O ID é gerado automaticamente com `random.randint()`.
+
+Cada livro é armazenado como um **dicionário** dentro da lista `livros`:
+
+```python
+{"id": 101, "titulo": "Exemplo", "autor": "Autor", "valor": 39.90}
+```
+
+Inclui tratamento de erro para evitar valores inválidos.
 
 ---
 
-### 2️⃣ Listar Livros
-Exibe todos os livros cadastrados, mostrando:
+### **2️⃣ Listar Livros**
+Mostra todos os livros cadastrados, exibindo:
+
 - ID  
 - Título  
 - Autor  
-- Valor (formatado em R$)
+- Valor formatado em R$  
 
-Caso a lista esteja vazia, o sistema informa o usuário.
-
----
-
-### 3️⃣ Atualizar Livro
-Permite alterar o título e o autor de um livro.
-Funcionamento:
-
-- O sistema pede o **ID** do livro  
-- Procura na lista  
-- Se encontrado, solicita os novos dados  
-- Atualiza o dicionário correspondente
-
-Se o ID não existir, mostra uma mensagem de erro.
+Se não houver livros cadastrados, exibe uma mensagem informando o usuário.
 
 ---
 
-### 4️⃣ Remover Livro
-Remove um livro também baseado no ID.
+### **3️⃣ Atualizar Dados do Livro**
+Permite alterar completamente um livro existente.
 
-- O usuário informa o ID  
-- O sistema busca na lista  
-- Caso encontre, exclui o registro  
-- Exibe mensagem de confirmação
+Fluxo:
 
-Se não encontrar, informa que o ID é inválido.
+1. Usuário informa o ID  
+2. O sistema valida o número e verifica se existe  
+3. São solicitados os novos dados:  
+   - Título  
+   - Autor  
+   - Valor  
+4. Os dados são atualizados no dicionário correspondente  
+
+Inclui validação de entrada numérica e tratamento de exceções.
 
 ---
 
-### 5️⃣ Gerar Relatório do Acervo
-Exibe um relatório contendo:
+### **4️⃣ Remover Livro**
+Remove um livro baseado no ID fornecido:
+
+- Caso exista → o livro é removido  
+- Caso não exista → o sistema informa que o ID não foi encontrado  
+
+---
+
+### **5️⃣ Gerar Relatório do Acervo**
+Gera um relatório contendo:
 
 ✔ Total de livros cadastrados  
+✔ Média dos valores dos livros  
 ✔ Lista completa, ordenada por ID  
-✔ Valor de cada livro  
 ✔ Contagem de livros por autor  
 
-Útil para visualizar rapidamente a situação geral do acervo.
+Exemplo:
 
----
+```
+---- RELATÓRIO DO ACERVO ----
+Total de livros: 3
+Valor médio de preço: 42.50
 
-### 0️⃣ Sair
-Encerra o sistema com uma mensagem simples.
+Lista de livros (ordenada por ID):
+12 - Título: ABC, Autor: João, Valor: R$ 20.00
+35 - Título: XYZ, Autor: Ana, Valor: R$ 45.00
+
+Contagem por Autor:
+João                 - 2 livros
+Ana                  - 1 livro
+```
 
 ---
 
 ## 🧠 Estruturas de Dados Utilizadas
 
-| Estrutura | Função |
-|----------|--------|
-| **list** | Armazena todos os livros cadastrados (`livros`). |
-| **dict** | Representa cada livro (com ID, título, autor e valor). |
-| **int / float** | Usados para identificar o livro e registrar seu valor. |
-| **for / if** | Controlam toda a lógica de busca, atualização e listagem. |
+| Estrutura | Utilização |
+|----------|------------|
+| **list** | Armazena todos os livros cadastrados |
+| **dict** | Representa cada livro individualmente |
+| **random** | Gera IDs automaticamente |
+| **float / int** | Utilizados para valores e identificadores |
 
 ---
 
 ## 🔄 Estruturas de Controle
 
-O sistema usa:
+O sistema utiliza:
 
-- **while** → mantém o menu rodando  
-- **for** → percorre os livros cadastrados  
-- **if / elif / else** → controla o fluxo das operações  
-- **funções (def)** → deixam o código organizado, separado por tarefas  
+- **while** → mantém o menu ativo  
+- **for** → percorre a lista de livros  
+- **if / elif / else** → controla decisões e fluxos  
+- **try / except** → trata erros como:  
+  - ID inválido  
+  - Valor não numérico  
+  - Exceções inesperadas  
 
+---
+
+## 🧱 Organização do Código
+
+O sistema está dividido em funções, facilitando manutenção e leitura:
+
+- `cadastrar_livros()`  
+- `listar_livros()`  
+- `atualizar_registro()`  
+- `remover_livros()`  
+- `gerar_relatorio()`  
+- `menu()`  
