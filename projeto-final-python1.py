@@ -20,18 +20,42 @@ def listar_livros(livros):
             print(f"{livro['id']} - Título: {livro['titulo']}, Autor: {livro['autor']}, Valor: R$ {livro['valor']:.2f}")
 
 def atualizar_registro(livros):
-    id_fornecido = int(input("Digite o ID do livro a ser atualizado: "))
+    # Testa se o ID é numérico
+    try:
+        id_fornecido = int(input("Digite o ID do livro a ser atualizado: "))
+    except ValueError:
+        print(f"Erro: o ID deve ser um número inteiro")
+        return
+
+    # Procura o livro pelo ID
+    livro_encontrado = None
     for livro in livros:
-        if livro['id'] == id_fornecido: 
-            # Solicita novos dados e atualiza   
-            novo_titulo = input("Digite o novo título: ")
-            novo_autor = input("Digite o novo autor: ")
-            livro['titulo'] = novo_titulo
-            livro['autor'] = novo_autor
-            print("Dados atualizados!")
+        if livro['id'] == id_fornecido:
+            livro_encontrado = livro
             break
-    else:
+
+    if not livro_encontrado:
         print(f"Livro de ID {id_fornecido} não encontrado!")
+        return
+    
+    try:
+        novo_titulo = input("Digite o novo título: ")
+        novo_autor = input("Digite o novo autor: ")    
+        novo_valor = float(input("Digite o novo valor: "))
+        
+    except ValueError:
+        print("Erro: o valor deve ser numérico.")
+        return
+    except Exception as e:
+        print(f"Ocorreu um erro inesperado: {e}")
+        return
+
+    # Atualiza o dicionário com os novos dados
+    livro_encontrado['titulo'] = novo_titulo
+    livro_encontrado['autor'] = novo_autor
+    livro_encontrado['valor'] = novo_valor
+
+    print("Dados atualizados com sucesso!")
 
 def remover_livros(livros):
     id_fornecido = int(input("Digite o ID do livro para ser excluído: "))
@@ -49,8 +73,16 @@ def gerar_relatorio(livros):
         return
 
     total = len(livros)
+    soma = 0  # Variável para o cálculo da média
+
+    for livro in livros:
+        soma += livro['valor']
+
+    valor_medio = soma / len(livros)  # Calcula a média de preço
+
     print("---- RELATÓRIO DO ACERVO ----")
-    print(f"Total de livros: {total}\n")
+    print(f"Total de livros: {total}")
+    print(f"Valor médio de preço: {valor_medio}\n")
 
     # Lista ordenada por id
     print("Lista de livros (ordenada por ID):")
@@ -63,7 +95,7 @@ def gerar_relatorio(livros):
         autor = livro['autor']
         contagem_autores[autor] = contagem_autores.get(autor, 0) + 1
 
-    print("Contagem por Autor:")
+    print("\nContagem por Autor:")
     print("---------------------------")
 
     # Ordena alfabeticamente os autores
@@ -78,7 +110,7 @@ def gerar_relatorio(livros):
 # Função principal - Exibe o menu
 def menu():
     while True:
-        print("MENU PRINCIPAL SIB")
+        print("MENU PRINCIPAL SIBL (Sistema Integrado de Bibliotecas e Livrarias)")
         print("1 - Cadastrar Livro")
         print("2 - Listar todos os livros")
         print("3 - Atualizar dados de um livro")
@@ -104,5 +136,5 @@ def menu():
             break
         else:
             print("Opção inválida!")
-menu()
 
+menu()
